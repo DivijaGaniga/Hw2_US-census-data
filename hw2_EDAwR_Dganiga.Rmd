@@ -98,20 +98,32 @@ You should read the **county.csv** file into a data frame named county_df and
 **county_MI.csv** into a data frame named county_MI.
 
 ```{r read_countydata}
-# county_df <- ???
-# county_MI <- ???
+ county_df <- read.table("data/county.csv", header=TRUE, sep=",", stringsAsFactors=TRUE)
+county_MI <-  read.table("data/county_MI.csv", header=TRUE, sep=",", stringsAsFactors=TRUE)
 ```
 
 * What does each row represent?
+
+Eachh row represents demographic, social, economic and commuting factors of each County in United states and Michigan respectively.
 
 Check the structure of each data.frame and use the `summary` function to begin
 exploring the data. 
 
 * Are there any NA values? 
+
+-Yes there are NAs in county_df (1 each in child_poverty, IncomeErr and Income) and no NA valaues in county_MI dataset
+
 * What differences do you notice between the structure of the two data frames?
 
-```{r}
+-There is a new column in County_MI dataframe , which provides details about Peninsula. 
+-Order of the rows have been changed in the two dataframes. in MI database County is re-arranged with Peninsula column as second column
 
+```{r}
+str(county_df)
+str(county_MI)
+
+summary (county_df)
+summary(county_MI)
 ```
 
 The county_MI data frame contains data for Michigan only and includes an
@@ -130,8 +142,27 @@ Create a histogram, boxplot, kernel density plot and violin plot for median
 income for the entire US. 
 Write a short paragraph describing the distribution of median incomes.
 
+-Range of Median income is distributed widely among different counties in U.S from $19,000 to $12,0000
+-Histogram is Unimodal
+-Most of the counties have median income ranging from $30,000 to $50,000
+
 ```{r}
-# ggplot(???) + geom_histogram(???)
+g <- ggplot(data = county_df)
+
+g + geom_histogram(mapping = aes(x = Income), binwidth = 5000, fill = "#FF00CC")+
+                            ggtitle("Histogram of Median Income for the entire US")
+        
+ g + geom_boxplot(aes(x="label", y=Income), fill = "pink")+
+                            ggtitle("Boxplot of Median Income for the entire US") +theme(axis.title.y = element_text(face="bold", colour="#990000", size=20),
+           axis.text.x  = element_text(angle=90, vjust=0.5, size=16))   
+ 
+ 
+ g+ geom_violin(aes(x="Label", y= Income), 
+              fill="steelblue", colour="black") + ggtitle("Violin plot of Median Income for the entire US")
+ 
+ g + geom_density(aes(x=Income) , fill = "#FF9999" )+ggtitle("Kernel Density plot of Median Income for the entire US")+ theme(axis.title.x = element_text(face="bold", colour="#990000", size=20),
+           axis.text.x  = element_text(angle=90, vjust=0.5, size=10))   
+      
 ```
 
 ### Problem 3 - Histogram of total population
