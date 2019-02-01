@@ -228,15 +228,49 @@ your graph has a title and good axis labels.
 Do the peninsulas 
 differ with respect to distribution of median income over the counties?
 
+-Median income is distributed widely among counties and in case of peninsulas income is distributed widely among lower peninsula compared to Upper peninsula
+- Median income in UP is less than that of LP
+-Weather conditions and population density might be the reason why income distribution and Median income in UP is less than Lower Peninsula
 
 ```{r vp_inc_by_peninsula}
+
+ggplot(data = county_MI)+ geom_violin(aes(x=peninsula, y=Income, fill = peninsula))+ ggtitle("Median income distribution based on peninsula in MI")+
+                          xlab(" Peninsula in MI") + ylab("Median income")+theme(axis.title.x = element_text(face="bold", colour="#990000", size=20),
+           axis.text.x  = element_text(vjust=0.5, size=12)) +theme(axis.title.y = element_text(face="bold", colour="#990000", size=20))
+
 
 ```
 
 Create several boxplots showing how the peninsulas compare with respect to
 some of the other variables. Summarize your findings in a few short paragraphs.
 
+- Total population spread (Interquartile range) in Lower peninsula is higher than Upper peninsula. Highest Population in Up is less than Q2 of total population in LP
+-On an average (Median) poverty rate in LP is more than UP.
+-Poverty in Lower peninsula is spread widely and also has outliers, few areas in LP have very high poverty rate 
+-Total employed population in LP is more than that of UP , it might be because total population is more in LP than in UP. EMployement rate and unemployement rate are good measures for comparision
+- On an average Unemployement rate in LP is more than that of UP. Spread of Unemployement rate is more than poverty in UP
+- Unemployement rate in Q3 of UP is widely distributed. There is an outlier of unemployement rate in LP
+- Offices are more in LP when compared to UP , this might be because of more population in LP than that of UP
+-Overall Production in LP is more than UP
+- Based on Income distribution and population on an average Income percapita of LP is more than UP 
+-All the variables in Upper peninsula are uniformly distributed when compared to Lower peninsula
+
 ```{r boxplots}
+ggplot(data = county_MI)+ geom_boxplot(aes(x=peninsula, y=TotalPop, fill = peninsula))+ ggtitle("Total population distribution based on peninsula in MI")+ xlab(" Peninsula in MI") + ylab("Total Population")
+
+ggplot(data = county_MI)+ geom_boxplot(aes(x=peninsula, y=Poverty, fill = peninsula))+ ggtitle("Poverty distribution based on peninsula in MI")+
+                          xlab(" Peninsula in MI") + ylab("Poverty")
+
+ggplot(data = county_MI)+ geom_boxplot(aes(x=peninsula, y=Employed, fill = peninsula))+ ggtitle("Employed distribution based on peninsula in MI")+
+                          xlab(" Peninsula in MI") + ylab("Total employed")
+
+ggplot(data = county_MI)+ geom_boxplot(aes(x=peninsula, y=Unemployment, fill = peninsula))+ ggtitle("Unemployement distribution based on peninsula in MI")+xlab(" Peninsula in MI") + ylab("Unemployement")
+
+ggplot(data = county_MI)+ geom_boxplot(aes(x=peninsula, y=Office, fill = peninsula))+ ggtitle("Office distribution based on peninsula in MI")+xlab(" Peninsula in MI") + ylab("Office")
+
+ggplot(data = county_MI)+ geom_boxplot(aes(x=peninsula, y=Production, fill = peninsula))+ ggtitle("Production distribution based on peninsula in MI")+xlab(" Peninsula in MI") + ylab("Production")
+
+ggplot(data = county_MI)+ geom_boxplot(aes(x=peninsula, y=IncomePerCap, fill = peninsula))+ ggtitle("Income Percapita distribution based on peninsula in MI")+xlab(" Peninsula in MI") + ylab("Income Per Capita")
 
 ```
 
