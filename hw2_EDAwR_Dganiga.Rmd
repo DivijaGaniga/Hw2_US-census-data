@@ -279,14 +279,31 @@ histograms showing how unemployment rate compares by region.  Make sure your gra
 labels. 
 
 ```{r faceted_histo}
-ggplot(data = county_df) + ???
+ggplot(data = county_df, aes(x = Unemployment, fill = Region)) +
+  geom_histogram(data = county_df, fill = "grey", alpha = .5) +
+  geom_histogram(colour = "black") +
+  facet_wrap(~ Region) +
+  guides(fill = FALSE) + ggtitle("Unemployement rate in US by region")+theme(axis.title.x = element_text(face="bold", colour="#990000", size=15),
+           axis.text.x  = element_text(vjust=0.5, size=10)) +theme(axis.title.y = element_text(face="bold", colour="#990000", 
+          size=15))+xlab("Unemployement rate by regions")+ ylab("Number of counties")
 
+
+  
+# from the website https://drsimonj.svbtle.com/plotting-background-data-for-groups-with-ggplot2
+  
 ```
+
 
 Now do a group of boxplots of mean commute time by region.
 
 ```{r bp_commute_region}
-ggplot(data = county_df) + ???
+ggplot(data = county_df, aes(x= "",y = MeanCommute, fill = Region)) +
+  geom_boxplot(data = county_df, fill = "grey", alpha = .5) +
+  geom_boxplot(colour = "black") +
+  facet_wrap(~ Region) +
+  guides(fill = FALSE) + ggtitle("Mean commute time in US by region")+theme(axis.title.x = element_text(face="bold", colour="#990000", size=15),
+           axis.text.x  = element_text(vjust=0.5, size=10)) +theme(axis.title.y = element_text(face="bold", colour="#990000", 
+          size=15))+xlab("Mean commute time rate by regions")+ ylab("Number of counties")
   
   
   
@@ -299,7 +316,12 @@ your graph has a title and good axis labels. Figure out how to format the
 x-axis labels so that they don't obscure each other.
 
 ```{r bar_counties_by_division}
-ggplot(county_df) + ???
+  ggplot(data = county_df, aes(x= Division,fill = Division)) +
+  geom_bar(data = county_df, fill = "grey", alpha = .5) +
+  geom_bar(colour = "black")+theme(axis.title.x = element_text(face="bold", colour="#990000", size=15),
+  axis.text.x  = element_text(angle = 90,vjust=0.5, size=10))+ ggtitle("Number of counties in each Division of US")+ylab("Number of Counties")+
+  theme(axis.title.y = element_text(face="bold", colour="#990000", 
+          size=15))
 
 ```
 
@@ -310,16 +332,27 @@ Income and MeanCommute.
 
 ```{r xy_inc_commute}
 
+ggplot(data = county_MI, aes(x=Income, y=MeanCommute)) + 
+  geom_point()+theme_grey()+ggtitle(" Scatterplot of Income vs Mean commute time in Michigan")
+
 ```
 
 Create a modified version of the above scatter plot in which the point color
 is mapped to peninsula and the size is mapped to total population.
 
 ```{r xy_inc_commute_peninsula}
+ggplot(data = county_MI, aes(x=Income, y=MeanCommute, color = peninsula, size= TotalPop)) + 
+  geom_point()+theme_grey() +ggtitle(" Scatterplot of Income vs Mean commute time in Michigan")
+
 
 ```
 
 Your thoughts on the relationship between these variables?
+
+- Median household income is more in LP than in UP
+-Total population in the most number of counties of UP is less than 1million
+-In LP commute time is more when compared to UP
+- with Increase in income 
 
 Now, create a few more scatter plots using variables of your choosing in which
 you facet by peninsula as well. How do the relationships compare across the
@@ -336,6 +369,9 @@ Create a scatter plot of TotalPop by Income.
 
 ```{r xy_pop_inc}
 
+ggplot(data = county_df, aes(x=log10(TotalPop), y=Income, color = "blue")) + 
+  geom_point()+theme_bw()
+
 ```
 
 The widely varying values make this difficult to interpret in terms of looking
@@ -343,6 +379,11 @@ for patterns. So, figure out a way to either change the axis scales or
 the plotted data itself to use a base 10 logarithmic scale (or transform).
 Write a short paragraph on why one might want to use a log scale or log
 transform of data when plotting.
+
+-In cases where one or few points in the data are much larger than rest of the data it is difficult to do analysis with this data,
+log transformation helps to reduce skewness of the data
+
+
 
 ### Hacker Extra - More analysis
 
