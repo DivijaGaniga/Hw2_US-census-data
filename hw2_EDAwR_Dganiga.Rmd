@@ -352,7 +352,10 @@ Your thoughts on the relationship between these variables?
 - Median household income is more in LP than in UP
 -Total population in the most number of counties of UP is less than 1million
 -In LP commute time is more when compared to UP
-- with Increase in income 
+- On an average population is more where commute time is less
+- Average commute time to work is between 15mins to 30mins
+-As the income increases there might be increase in car ownership and may increase traffic which will lead to high commute time
+- More commute time with low income Census might be because, people prefer public services than own transport which make many stops in between and increases commute time
 
 Now, create a few more scatter plots using variables of your choosing in which
 you facet by peninsula as well. How do the relationships compare across the
@@ -360,7 +363,33 @@ peninsulas?
 
 ```{r xy_faceted_peninsula}
 
+# comparision of penisiulas by commute time vs drive
+ggplot(data = county_MI, aes(x= Drive, y = MeanCommute ))+geom_point(aes(colour = MeanCommute))+facet_wrap(~peninsula)+ ggtitle("Scatterplot of income vs percentage of people driving by car")+scale_color_gradient(low = "red", high = "blue")+xlab("Percentage of commuters Driving")
+
+# comparision of penisiulas by Employed vs income
+
+ggplot(data = county_MI, aes(x= Employed, y = Income ))+geom_point(aes(colour = Employed))+facet_wrap(~peninsula)+ ggtitle("Scatterplot of income vs employed")+scale_color_gradient(low = "red", high = "blue")+xlab("Number of people employed")
+
+
+# distribution of income of private workers 
+
+ggplot(data = county_MI, aes(x= PrivateWork, y = Income ))+geom_point(aes(colour = Income))+facet_wrap(~peninsula)+ ggtitle("Scatterplot of income of Private employed")+scale_color_gradient(low = "red", high = "blue")+xlab("Percentage of Private employed population")
+
+# distribution of income of Public workers
+ggplot(data = county_MI, aes(x= PublicWork, y = Income ))+geom_point(aes(colour = Income))+facet_wrap(~peninsula)+ ggtitle("Scatterplot of income of Public employed")+scale_color_gradient(low = "red", high = "blue")+xlab("Percentage of Public employed population")
+
+# unemployed vs Poverty
+
+ggplot(data = county_MI, aes(x= Poverty, y = Unemployment ))+geom_point(aes(colour = Unemployment))+facet_wrap(~peninsula)+ ggtitle("Scatterplot of Poverty vs Unemployement rate")+scale_color_gradient(low = "red", high = "blue")+xlab("Percentage of Poverty")
+
+# Total Pop vs Poverty
+ggplot(data = county_MI, aes(x= TotalPop, y = Poverty ))+geom_point(aes(colour = Poverty))+facet_wrap(~peninsula)+ ggtitle("Scatterplot of TotalPop vs Poverty")+scale_color_gradient(low = "red", high = "blue") +xlab("Total Population")
+
+
 ```
+
+- 
+
 
 
 Now use the full US data frame.
@@ -379,6 +408,7 @@ for patterns. So, figure out a way to either change the axis scales or
 the plotted data itself to use a base 10 logarithmic scale (or transform).
 Write a short paragraph on why one might want to use a log scale or log
 transform of data when plotting.
+
 
 -In cases where one or few points in the data are much larger than rest of the data it is difficult to do analysis with this data,
 log transformation helps to reduce skewness of the data
