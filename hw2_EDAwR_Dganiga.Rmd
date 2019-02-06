@@ -373,22 +373,30 @@ ggplot(data = county_MI, aes(x= Employed, y = Income ))+geom_point(aes(colour = 
 
 # distribution of income of private workers 
 
-ggplot(data = county_MI, aes(x= PrivateWork, y = Income ))+geom_point(aes(colour = Income))+facet_wrap(~peninsula)+ ggtitle("Scatterplot of income of Private employed")+scale_color_gradient(low = "red", high = "blue")+xlab("Percentage of Private employed population")
+ggplot(data = county_MI, aes(y= PrivateWork, x = Income ))+geom_point(aes(colour = Income))+facet_wrap(~peninsula)+ ggtitle("Scatterplot of income of Private employed")+scale_color_gradient(low = "red", high = "blue")+ylab("Percentage of Private employees")
 
 # distribution of income of Public workers
-ggplot(data = county_MI, aes(x= PublicWork, y = Income ))+geom_point(aes(colour = Income))+facet_wrap(~peninsula)+ ggtitle("Scatterplot of income of Public employed")+scale_color_gradient(low = "red", high = "blue")+xlab("Percentage of Public employed population")
+ggplot(data = county_MI, aes(x= PublicWork, y = Income ))+geom_point(aes(colour = Income))+facet_wrap(~peninsula)+ ggtitle("Scatterplot of income of Public employed")+scale_color_gradient(low = "red", high = "blue")+xlab("Percentage of Public employees")
 
 # unemployed vs Poverty
 
 ggplot(data = county_MI, aes(x= Poverty, y = Unemployment ))+geom_point(aes(colour = Unemployment))+facet_wrap(~peninsula)+ ggtitle("Scatterplot of Poverty vs Unemployement rate")+scale_color_gradient(low = "red", high = "blue")+xlab("Percentage of Poverty")
 
-# Total Pop vs Poverty
-ggplot(data = county_MI, aes(x= TotalPop, y = Poverty ))+geom_point(aes(colour = Poverty))+facet_wrap(~peninsula)+ ggtitle("Scatterplot of TotalPop vs Poverty")+scale_color_gradient(low = "red", high = "blue") +xlab("Total Population")
+# Citizens vs childPoverty
+ggplot(data = county_MI, aes(x= Citizen, y = ChildPoverty ))+geom_point(aes(colour = Poverty))+facet_wrap(~peninsula)+ ggtitle("Scatterplot of citizenship vs ChildPoverty")+scale_color_gradient(low = "red", high = "blue") +xlab("Total Citizens")
 
+# employed vs Service
+ggplot(data = county_MI, aes(x= log(Employed), y = Service ))+geom_point(aes(colour = Poverty))+facet_wrap(~peninsula)+ ggtitle("Scatterplot of employed vs Service")+scale_color_gradient(low = "red", high = "blue")+ xlab("Total employed")
 
 ```
 
-- 
+- Percentage of commuters driving is less in Upper Peninsula than that of Lower peninsula and so the mean commute time is more in Lp than in UP. Greater percentage of commuters driving would increase traffic congestion, increasing mean commute time
+-In UP income of employed personnel is less than that of LP.Median household income of employed population in LP is widely distributed in Lp than that of UP, where income is distributed between $32,000 to $45,000
+-Percentage of Private workers in LP is more than that of UP and so is the median household income. Median household income is spread widely amoung census of LP than in UP
+-Percentage of public employes is more in UP than in LP, as economy of UP is mainly based on tourism and mining industries. However, income of public workers in LP is more than that of UP. In most of the counties of LP public workers account only to 10-15% of total employed population
+-Unemployement and Poverty are positively correlated, higher the unemployment rate, poverty also increases. In UP poverty rte ranges from 13-22% approximately, where as in Lp it ranges from 3% -30%. On an average unemployement rate in LP is more than that of UP. On an average In Up more counties are above median poverty rate.
+-With increase in citizen ship child poverty is decreasing, on an average considering number of census in LP and UP, child poverty and poverty rates in Up are more than LP
+- Total employed population in Service sector is more in Up than in LP
 
 
 
@@ -410,9 +418,9 @@ Write a short paragraph on why one might want to use a log scale or log
 transform of data when plotting.
 
 
--In cases where one or few points in the data are much larger than rest of the data it is difficult to do analysis with this data,
+>In cases where one or few points in the data are much larger than rest of the data it is difficult to do analysis with this data,
 log transformation helps to reduce skewness of the data
-
+> Log transformation is also used to transform non-linear model to linear regression model
 
 
 ### Hacker Extra - More analysis
@@ -421,3 +429,29 @@ Do some additional plotting to look for interesting patterns or relationships
 either in the full US dataset or the MI only dataset. In addition, try out
 some of ggplots additional features such as themes, axis formatting, gridline
 control, or others.
+
+```{r}
+library(ggthemes)
+
+ggplot(data = county_MI, aes(x=Income, color = peninsula)) +
+  geom_density(data = county_MI)
+
+#Income vs Unemployement rate among Peninsula
+
+ggplot(data = county_MI, aes(Income, Unemployment))+geom_point(aes(shape = peninsula, color = peninsula,size= 1))+geom_smooth(data=county_MI)+theme_economist()+
+  ggtitle("Income vs Unemployement rate among Peninsula")
+
+
+# Total median income distribution region wise
+ggplot(data = county_df, aes(x= Region,y = Income,fill = Region)) +
+  geom_boxplot(data = county_df, alpha = 1)+ theme(axis.text.x = element_text(angle = 90, hjust = 1))+theme(axis.text.y = element_text(size=7, hjust = 1))+
+  coord_flip()+theme_economist()+scale_color_economist()+theme(axis.title.y = element_text(face="bold", colour="red", 
+          size=16, vjust =1))+theme(axis.title.x = element_text(face="bold", colour="red", 
+          size=16, vjust =1))+theme(panel.grid.minor = element_line(colour="white", size=0.0)) + ggtitle("Median household income distribution Region wise")
+  
+ggplot(data = county_MI, aes(x=White, fill = peninsula, alpha= 0.8)) +
+  geom_density(data = county_MI) 
+
+
+```
+
