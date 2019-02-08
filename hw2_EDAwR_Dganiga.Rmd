@@ -387,6 +387,7 @@ ggplot(data = county_MI, aes(x= Citizen, y = ChildPoverty ))+geom_point(aes(colo
 # employed vs Service
 ggplot(data = county_MI, aes(x= log(Employed), y = Service ))+geom_point(aes(colour = Poverty))+facet_wrap(~peninsula)+ ggtitle("Scatterplot of employed vs Service")+scale_color_gradient(low = "red", high = "blue")+ xlab("Total employed")
 
+
 ```
 
 > Percentage of commuters driving is less in Upper Peninsula than that of Lower peninsula and so the mean commute time is more in Lp than in UP. Greater percentage of commuters driving would increase traffic congestion, increasing mean commute time
@@ -432,8 +433,6 @@ control, or others.
 ```{r}
 library(ggthemes)
 
-ggplot(data = county_MI, aes(x=Income, color = peninsula)) +
-  geom_density(data = county_MI)
 
 #Income vs Unemployement rate among Peninsula
 
@@ -447,23 +446,40 @@ ggplot(data = county_df, aes(x= Region,y = Income,fill = Region)) +
   coord_flip()+theme_economist()+scale_color_economist()+theme(axis.title.y = element_text(face="bold", colour="red", 
           size=16, vjust =1))+theme(axis.title.x = element_text(face="bold", colour="red", 
           size=16, vjust =1))+theme(panel.grid.minor = element_line(colour="white", size=0.0)) + ggtitle("Median household income distribution Region wise")
-  
-ggplot(data = county_MI, aes(x=White, fill = peninsula, alpha= 0.8)) +
-  geom_density(data = county_MI) 
 
 # total distribution of citizens in MI
 
-(citizen_percent <- (county_MI$Citizen/county_MI$TotalPop)*100)
+citizen_percent <- (county_MI$Citizen/county_MI$TotalPop)*100
 
-ggplot(data = county_MI, aes(x=peninsula, y= citizen_percent))+geom_boxplot()
+ggplot(data = county_MI, aes(x=peninsula, y= citizen_percent,fill = peninsula))+
+      geom_boxplot()+theme(axis.text.x = element_text(angle = 90, hjust = 1))+theme(axis.text.y = element_text(size=7, hjust = 1))+
+      coord_flip()+theme_igray()+scale_color_economist()+theme(axis.title.y = element_text(face="bold", colour="red", 
+      size=16, vjust =1))+theme(axis.title.x = element_text(face="bold", colour="red", 
+      size=16, vjust =1))+theme(panel.grid.minor = element_line(colour="white", size=0.0)) + 
+      ggtitle("Distribution of Citizen by Peninsula")+ylab("Percentage of Citizens to total Population")+xlab("Peninsula")
 
-# Top 15 Counties with highest Income
+# Top 10 and Bottom 10 Counties with respect to Median income
 
-county_df_2 <- county_df  %>% arrange (desc(county_df$Income)) %>% head(15)
-          # arranging in descending order and top 15 counties
+mean_income <- mean(county_df$Income, na.rm =TRUE )
 
-county_df_2 %>%  ggplot(aes(x = reorder(County, Income),y = Income, fill = Region))+ geom_bar(stat= "Identity")+coord_flip()+theme(axis.text.y = element_text(size=8, hjust = 1))+  scale_fill_manual(values = c("purple", "blue","pink"))+theme_fivethirtyeight() +
-  theme(axis.text.x = element_blank())+geom_text(aes(label = Income))+ggtitle("Top 15 Counties with highest median income")
+county_df$income_2<- county_df[,c("Income")]-mean_income
+county_df$incometype <- ifelse(county_df$income_2 <0, "below median income", "above median income")
+
+ # arranging in descending order and ascending order of and bottom 10 counties
+county_df <- county_df  %>%  arrange(desc(county_df$income_2)) %>%
+  head(10) %>%
+  rbind(county_df %>% arrange(desc(county_df$income_2)) %>% tail(10))
+
+         
+county_df %>%  ggplot(aes(x = reorder(County, income_2),y = income_2))+
+                 geom_bar(stat="Identity",aes(fill = incometype ))+coord_flip()+theme(axis.text.y = element_text(size=8, hjust = 1))+  
+                 scale_fill_manual(values = c("#00ba38", "#f8766d"))+theme_economist() +
+                 ggtitle("Top 10 Counties vs Bottom 10 Counties in terms of median income") + ylab("Median Income")+xlab("County")+
+                 theme(axis.title.x = element_text(face="bold", colour="red", size=12, vjust =-1),axis.text.x = element_blank())+
+                 theme(axis.title.y = element_text(face="bold", colour="red", size=12, vjust =1))+
+                 theme(plot.title = element_text(size=10),panel.grid.major = element_blank())+
+                  geom_text(aes(label = paste("$",Income)),hjust =0.6,size=2.75)
+
 
 
 ```
