@@ -107,19 +107,19 @@ county_MI <-  read.table("data/county_MI.csv", header=TRUE, sep=",", stringsAsFa
 
 * What does each row represent?
 
-> Each row represents demographic, social, economic and commuting factors of each County in United states and Michigan respectively.
+> -Each row represents demographic, social, economic and commuting factors of each County in United states and Michigan respectively.
 
 Check the structure of each data.frame and use the `summary` function to begin
 exploring the data. 
 
 * Are there any NA values? 
 
-> Yes there are NAs in county_df (1 each in child_poverty, IncomeErr and Income) and no NA valaues in county_MI dataset
+> -Yes there are NAs in county_df (1 each in child_poverty, IncomeErr and Income) and no NA valaues in county_MI dataset
 
 * What differences do you notice between the structure of the two data frames?
 
-> There is a new column in County_MI dataframe , which provides details about Peninsula. 
-> Order of the rows have been changed in the two dataframes. in MI database County is re-arranged with Peninsula column as second column
+> -There is a new column in County_MI dataframe , which provides details about Peninsula. 
+> -Order of the rows have been changed in the two dataframes. in MI database County is re-arranged with Peninsula column as second column
 
 ```{r}
 str(county_df)
@@ -145,9 +145,9 @@ Create a histogram, boxplot, kernel density plot and violin plot for median
 income for the entire US. 
 Write a short paragraph describing the distribution of median incomes.
 
-> Range of Median income is distributed widely among different counties in U.S from $19,000 to $12,0000
-> Histogram is Unimodal
-> Most of the counties have median income ranging from $30,000 to $50,000
+>- Range of Median income is distributed widely among different counties in U.S from $19,000 to $12,0000
+> -Histogram is Unimodal
+> -Most of the counties have median income ranging from $30,000 to $50,000
 
 ```{r}
 g <- ggplot(data = county_df)
@@ -160,7 +160,7 @@ g + geom_histogram(mapping = aes(x = Income), binwidth = 5000, fill = "#FF00CC")
            axis.text.x  = element_text(angle=90, vjust=0.5, size=16))   
  
  
- g+ geom_violin(aes(x="Label", y= Income), 
+ g+ geom_violin(aes(x="", y= Income), 
               fill="steelblue", colour="black") + ggtitle("Violin plot of Median Income for the entire US")
  
  g + geom_density(aes(x=Income) , fill = "#FF9999" )+ggtitle("Kernel Density plot of Median Income for the entire US")+ theme(axis.title.x = element_text(face="bold", colour="#990000", size=20),
@@ -230,9 +230,9 @@ your graph has a title and good axis labels.
 Do the peninsulas 
 differ with respect to distribution of median income over the counties?
 
-> Median income is distributed widely among counties and in case of peninsulas income is distributed widely among lower peninsula compared to Upper peninsula
-> Median income in UP is less than that of LP
-> Population density might be the reason why income distribution and Median income in UP is less than Lower Peninsula
+> -Median income is distributed widely among counties and in case of peninsulas income is distributed widely among lower peninsula compared to Upper peninsula
+> -Median income in UP is less than that of LP
+> -Population density might be the reason why income distribution and Median income in UP is less than Lower Peninsula
 
 ```{r vp_inc_by_peninsula}
 
@@ -246,16 +246,16 @@ ggplot(data = county_MI)+ geom_violin(aes(x=peninsula, y=Income, fill = peninsul
 Create several boxplots showing how the peninsulas compare with respect to
 some of the other variables. Summarize your findings in a few short paragraphs.
 
-> Total population spread (Interquartile range) in Lower peninsula is higher than Upper peninsula. Highest Population in Up is less than Q2 of total population in LP
-> On an average (Median) poverty rate in LP is more than UP.
-> Poverty in Lower peninsula is spread widely and also has outliers, few areas in LP have very high poverty rate 
-> Total employed population in LP is more than that of UP , it might be because total population is more in LP than in UP. EMployement rate and unemployement rate are good measures for comparision
-> On an average Unemployement rate in LP is more than that of UP. Spread of Unemployement rate is more than poverty in UP
-> Unemployement rate in Q3 of UP is widely distributed. There is an outlier of unemployement rate in LP
-> Offices are more in LP when compared to UP , this might be because of more population in LP than that of UP
-> Overall Production in LP is more than UP
-> Based on Income distribution and population on an average Income percapita of LP is more than UP 
-> All the variables in Upper peninsula are uniformly distributed when compared to Lower peninsula
+> -Total population spread (Interquartile range) in Lower peninsula is higher than Upper peninsula. Highest Population in Up is less than Q2 of total population in LP
+> -On an average (Median) poverty rate in LP is more than UP.
+> -Poverty in Lower peninsula is spread widely and also has outliers, few areas in LP have very high poverty rate 
+> -Total employed population in LP is more than that of UP , it might be because total population is more in LP than in UP. EMployement rate and unemployement rate are good measures for comparision
+> -On an average Unemployement rate in LP is more than that of UP. Spread of Unemployement rate is more than poverty in UP
+> -Unemployement rate in Q3 of UP is widely distributed. There is an outlier of unemployement rate in LP
+> -Offices are more in LP when compared to UP , this might be because of more population in LP than that of UP
+> -Overall Production in LP is more than UP
+> -Based on Income distribution and population on an average Income percapita of LP is more than UP 
+> -All the variables in Upper peninsula are uniformly distributed when compared to Lower peninsula
 
 ```{r boxplots}
 ggplot(data = county_MI)+ geom_boxplot(aes(x=peninsula, y=TotalPop, fill = peninsula))+ ggtitle("Total population distribution based on peninsula in MI")+ xlab(" Peninsula in MI") + ylab("Total Population")
@@ -291,7 +291,7 @@ ggplot(data = county_df, aes(x = Unemployment, fill = Region)) +
   
 ```
 
-> above code is referred from the website https://drsimonj.svbtle.com/plotting-background-data-for-groups-with-ggplot2
+> -Above code is referred from the website https://drsimonj.svbtle.com/plotting-background-data-for-groups-with-ggplot2
 
 Now do a group of boxplots of mean commute time by region.
 
@@ -348,13 +348,13 @@ ggplot(data = county_MI, aes(x=Income, y=MeanCommute, color = peninsula, size= T
 
 Your thoughts on the relationship between these variables?
 
-> Median household income is more in LP than in UP
-> Total population in the most number of counties of UP is less than 1million
-> In LP commute time is more when compared to UP
-> On an average population is more where commute time is less
-> Average commute time to work is between 15mins to 30mins
-> As the income increases there might be increase in car ownership and may increase traffic which will lead to high commute time
-> More commute time with low income Census might be because, people prefer public services than own transport which make many stops in between and increases commute time
+> -Median household income is more in LP than in UP
+> -Total population in the most number of counties of UP is less than 1million
+> -In LP commute time is more when compared to UP
+> -On an average population is more where commute time is less
+> -Average commute time to work is between 15mins to 30mins
+> -As the income increases there might be increase in car ownership and may increase traffic which will lead to high commute time
+> -More commute time with low income Census might be because, people prefer public services than own transport which make many stops in between and increases commute time
 
 Now, create a few more scatter plots using variables of your choosing in which
 you facet by peninsula as well. How do the relationships compare across the
@@ -390,13 +390,13 @@ ggplot(data = county_MI, aes(x= log(Employed), y = Service ))+geom_point(aes(col
 
 ```
 
-> Percentage of commuters driving is less in Upper Peninsula than that of Lower peninsula and so the mean commute time is more in Lp than in UP. Greater percentage of commuters driving would increase traffic congestion, increasing mean commute time
-> In UP income of employed personnel is less than that of LP.Median household income of employed population in LP is widely distributed in Lp than that of UP, where income is distributed between $32,000 to $45,000
-> Percentage of Private workers in LP is more than that of UP and so is the median household income. Median household income is spread widely amoung census of LP than in UP
-> Percentage of public employes is more in UP than in LP, as economy of UP is mainly based on tourism and mining industries. However, income of public workers in LP is more than that of UP. In most of the counties of LP public workers account only to 10-15% of total employed population
-> Unemployement and Poverty are positively correlated, higher the unemployment rate, poverty also increases. In UP poverty rte ranges from 13-22% approximately, where as in Lp it ranges from 3% -30%. On an average unemployement rate in LP is more than that of UP. On an average In Up more counties are above median poverty rate.
-> With increase in citizen ship child poverty is decreasing, on an average considering number of census in LP and UP, child poverty and poverty rates in Up are more than LP
-> Total employed population in Service sector is more in Up than in LP
+> -Percentage of commuters driving is less in Upper Peninsula than that of Lower peninsula and so the mean commute time is more in Lp than in UP. Greater percentage of commuters driving would increase traffic congestion, increasing mean commute time
+> -In UP income of employed personnel is less than that of LP.Median household income of employed population in LP is widely distributed in Lp than that of UP, where income is distributed between $32,000 to $45,000
+> -Percentage of Private workers in LP is more than that of UP and so is the median household income. Median household income is spread widely amoung census of LP than in UP
+> -Percentage of public employes is more in UP than in LP, as economy of UP is mainly based on tourism and mining industries. However, income of public workers in LP is more than that of UP. In most of the counties of LP public workers account only to 10-15% of total employed population
+> -Unemployement and Poverty are positively correlated, higher the unemployment rate, poverty also increases. In UP poverty rte ranges from 13-22% approximately, where as in Lp it ranges from 3% -30%. On an average unemployement rate in LP is more than that of UP. On an average In Up more counties are above median poverty rate.
+> -With increase in citizen ship child poverty is decreasing, on an average considering number of census in LP and UP, child poverty and poverty rates in Up are more than LP
+> -Total employed population in Service sector is more in Up than in LP
 
 
 
@@ -418,9 +418,9 @@ Write a short paragraph on why one might want to use a log scale or log
 transform of data when plotting.
 
 
-> In cases where one or few points in the data are much larger than rest of the data it is difficult to do analysis with this data,
+> -In cases where one or few points in the data are much larger than rest of the data it is difficult to do analysis with this data,
 log transformation helps to reduce skewness of the data
-> Log transformation is also used to transform non-linear model to linear regression model
+> -Log transformation is also used to transform non-linear model to linear regression model
 
 
 ### Hacker Extra - More analysis
@@ -483,4 +483,4 @@ county_df %>%  ggplot(aes(x = reorder(County, income_2),y = income_2))+
 
 
 ```
-
+- Reference used for creating diverging plot is http://r-statistics.co/Top50-Ggplot2-Visualizations-MasterList-R-Code.html
