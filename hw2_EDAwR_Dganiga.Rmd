@@ -1,7 +1,7 @@
 ---
 title: "HW2-EDA with R - Part1: Plotting"
-author: "misken"
-date: "January 25, 2019"
+author: "Dganiga"
+date: "Feb 5th, 2019"
 output: html_document
 ---
 
@@ -483,4 +483,5 @@ county_df %>%  ggplot(aes(x = reorder(County, income_2),y = income_2))+
 
 
 ```
-- Reference used for creating diverging plot is http://r-statistics.co/Top50-Ggplot2-Visualizations-MasterList-R-Code.html
+ 
+-Reference used for creating diverging plot is http://r-statistics.co/Top50-Ggplot2-Visualizations-MasterList-R-Code.html
